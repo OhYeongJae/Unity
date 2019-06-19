@@ -23,21 +23,21 @@ public class UpgradeButton : MonoBehaviour
 
     void Start()
     {
-        DataController.GetInstance().LoadUpgradeButton(this);
+        DataController.Instance.LoadUpgradeButton(this);
         UpdateUI();
     }
 
     public void PurchaseUpgrade(){
     // 싱글톤 -> 단 하나만 존재하며 언제 어디서나 접근 가능한 상태 
-    if(DataController.GetInstance().GetGold() >= currentCost)
+    if(DataController.Instance.gold >= currentCost)
         {
-        DataController.GetInstance().SubGold(currentCost);
+        DataController.Instance.gold -= currentCost;
         level++;
-        DataController.GetInstance().AddGoldPerClick(goldByUpgrade);
+        DataController.Instance.goldPerClick += goldByUpgrade;
 
         UpdateUpgrade();
         UpdateUI();
-        DataController.GetInstance().SaveUpgradeButton(this);
+        DataController.Instance.SaveUpgradeButton(this);
         }
     }
     public void UpdateUpgrade()

@@ -23,21 +23,21 @@ public float upgradePow = 1.07f;
 public bool isPurchased = false;
 
     void Start(){
-       DataController.GetInstance().LoadItemButton(this);
+       DataController.Instance.LoadItemButton(this);
         StartCoroutine("AddGoldLoop");
         UpdateUI();
     }
     public void purchaseItem()
     {
-        if(DataController.GetInstance().GetGold() >= currentCost)
+        if(DataController.Instance.gold >= currentCost)
         {
             isPurchased = true;
-            DataController.GetInstance().SubGold(currentCost);
+            DataController.Instance.gold -= currentCost;
             level++;  
 
             UpdateItem();
             UpdateUI();
-            DataController.GetInstance().SaveItemButton(this);
+            DataController.Instance.SaveItemButton(this);
         }
     }   
 
@@ -45,7 +45,7 @@ public bool isPurchased = false;
         while(true){
             if(isPurchased)
             {
-                DataController.GetInstance().AddGold(goldPerSec);
+                DataController.Instance.gold += goldPerSec;
             }
 
             yield return new WaitForSeconds(1.0f); // yield에서 대기를 한다음 다시 실행된다.

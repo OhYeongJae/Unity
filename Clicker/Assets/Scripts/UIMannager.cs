@@ -9,9 +9,9 @@ public class UIMannager : MonoBehaviour
    public Text goldPerDisplayer;
    public Text goldPerSecDisplayer;
    void Update(){ // 1프레임당 1실행
-        goldDisplayer.text = "GOLD: " + DataController.GetInstance().GetGold();
-        goldPerDisplayer.text = "Add GOLD: " +DataController.GetInstance().GetGoldPerClick();
-        goldPerSecDisplayer.text = "GOLD PER SEC : " + DataController.GetInstance().GetGoldPerSec();
+        goldDisplayer.text = "GOLD: " + DataController.Instance.gold;
+        goldPerDisplayer.text = "Add GOLD: " +DataController.Instance.goldPerClick;
+        goldPerSecDisplayer.text = "GOLD PER SEC : " + DataController.Instance.GetGoldPerSec();
    }
 
 }

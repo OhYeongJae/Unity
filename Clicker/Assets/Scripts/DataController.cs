@@ -5,63 +5,79 @@ using UnityEngine;
 public class DataController : MonoBehaviour
 {
     private static DataController instance;  
-    public static DataController GetInstance()
+    public static DataController Instance
     {
-        if(instance == null)
-        {
+        get{
+          if(instance == null)
+            {
             instance = FindObjectOfType<DataController>();
 
             if(instance == null)
-            {
+                {
                 GameObject container = new GameObject("DataController");
                 instance = container.AddComponent<DataController>();
+                }
             }
-        }
         return instance;
+        }
     }
 
     private ItemButton[] itemButtons;
 
 
-    private int m_gold = 0;
-    private int m_goldPerClick = 0;
+    public long gold
+    {
+        get
+        {
+            if(!PlayerPrefs.HasKey("Gold"))
+            {
+                return 0;
+            }
+           string tmpGold = PlayerPrefs.GetString("Gold");
+           return long.Parse(tmpGold);
+        }
+        set
+        {
+           PlayerPrefs.SetString("Gold",value.ToString());
+        }
+    }
+   /*
+       public long goldPerClick
+    {
+        get
+        {
+             if(!PlayerPrefs.HasKey("GoldPerClick"))
+            {
+                return 0;
+            }
+            string tempGoldPerClick = PlayerPrefs.GetString("GoldPerClick","1");
+            return long.Parse(tempGoldPerClick);
+        }
+        set
+        {
+            PlayerPrefs.SetString("GoldPerClick",value.ToString());
+        }
+    }
+  */  
 
-    void Awake(){ // 게임 시작시 실행되는 함수
-       // KEY : VALUE
-        m_gold = PlayerPrefs.GetInt("Gold");
-        m_goldPerClick = PlayerPrefs.GetInt("GoldPerClick",1); // (KEY, 기본값) 기본값 없으면 0
+    public int goldPerClick
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("GoldPerClick",1);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("GoldPerClick",value);
+        }
+    }
 
+    void Awake()
+    { // 게임 시작시 실행되는 함수
+        //PlayerPrefs.DeleteAll();
         itemButtons = FindObjectsOfType<ItemButton>();
     }
 
-    public void SetGold(int newGold){
-        m_gold = newGold;
-        PlayerPrefs.SetInt("Gold", m_gold);
-    }
-    public void AddGold(int newGold){
-        m_gold += newGold;
-        SetGold(m_gold);
-    }
-    public void SubGold(int newGold){
-        m_gold -= newGold;
-        SetGold(m_gold);
-    }
-    public int GetGold(){
-        return m_gold;
-    }
-    public int GetGoldPerClick(){
-        return m_goldPerClick;
-    }
-
-    public void SetGoldPerClick(int newGoldPerClick){
-        m_goldPerClick = newGoldPerClick;
-        PlayerPrefs.SetInt("GoldPerClick",m_goldPerClick);
-    }
-
-    public void AddGoldPerClick(int newGoldPerClick){
-        m_goldPerClick += newGoldPerClick;
-        SetGoldPerClick(m_goldPerClick);
-    }
     public void LoadUpgradeButton(UpgradeButton upgradeButton)
     {
         string key = upgradeButton.upgradeName;
