@@ -6,7 +6,7 @@ public class BulletSpawner : MonoBehaviour
 {
     public GameObject BulletPrefab; // 생성할 탄알의 원본 프리팹
     public float spawnRateMin = 0.5f; // 최소 생성 주기
-    public float spawnRateMax = 3f; // 최대 생성 주기
+    public float spawnRateMax = 7f; // 최대 생성 주기
 
     private Transform target; // 발사할 대상
     private float spawnRate; // 생성 주기

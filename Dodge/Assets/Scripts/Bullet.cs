@@ -22,6 +22,7 @@ public class Bullet : MonoBehaviour
     // 트리거 충돌시 자동으로 실행되는 메서드
     void OnTriggerEnter(Collider other)
     {
+        
         // 충돌한 상대방 게임 오브젝트가 Player 태그를 가진 경우
         if (other.tag == "Player")
         {

@@ -32,7 +32,11 @@ public class GameManager : MonoBehaviour
             surviveTime += Time.deltaTime;
             // 갱신한 생존 시간을 timeText 텍스트 컴포넌트를 이용해 표시
             timeText.text = "Time : " + (int)surviveTime;
-        }
+            if(Rotator.rotationSpeed <= 80f)
+            {
+                Rotator.rotationSpeed = Rotator.rotationSpeed + (surviveTime + 0.0000001f) * Time.deltaTime;
+            }
+}
         else
         {
             // 게임오버 상태에서 R 키를 누른 경우
